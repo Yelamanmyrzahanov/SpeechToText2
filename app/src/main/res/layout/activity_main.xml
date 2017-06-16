@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:textColor="@color/white"
         android:textSize="26dp"
         android:textStyle="normal" />
@@ -23,11 +23,23 @@
         android:id="@+id/txtGiven"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
         android:textColor="@color/white"
         android:textSize="26dp"
         android:textStyle="normal"
-        android:text="world"/>
+        android:text=""/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/score"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="28dp"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="normal"
+        android:text="Score: 0"
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,10 +52,14 @@
 
         <ImageButton
             android:id="@+id/btnSpeak"
+            android:background="@null"
+            android:src="@drawable/ico_mic64"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ico_mic" />
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+
+            />
 
         <TextView
             android:layout_width="wrap_content"

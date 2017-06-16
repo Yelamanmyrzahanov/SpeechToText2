@@ -20,6 +20,12 @@ public class MainActivity extends Activity {
     private ImageButton btnSpeak;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private TextView txtGiven;
+    int mCurrentIndex = 0;
+    Words[] givenWords;
+    int score = 0;
+    private TextView txtScore;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +35,44 @@ public class MainActivity extends Activity {
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
         btnSpeak = (ImageButton) findViewById(R.id.btnSpeak);
         txtGiven = (TextView)findViewById(R.id.txtGiven);
+        txtScore = (TextView)findViewById(R.id.score);
 
         // hide the action bar
         getActionBar().hide();
+
+
+
+
+         givenWords= new Words[]{
+                new Words(0,"hello"),
+                new Words(1,"cat"),
+                new Words(2,"key"),
+                new Words(3,"hello"),
+                new Words(4,"pizza"),
+                new Words(5,"monkey"),
+                 new Words(6,"apple"),
+                 new Words(7,"rock"),
+                 new Words(8,"well"),
+                 new Words(9,"hug"),
+                 new Words(10,"super"),
+                 new Words(11,"run"),
+
+
+        };
+        String word = givenWords[mCurrentIndex].getWord();
+        txtGiven.setText(word);
 
         btnSpeak.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+                btnSpeak.setImageResource(R.drawable.ico_mic128);
                 promptSpeechInput();
             }
+
+
+
+
         });
 
     }
@@ -82,14 +116,34 @@ public class MainActivity extends Activity {
 
         }
         if((txtSpeechInput.getText().toString().toLowerCase()).equals(txtGiven.getText().toString().toLowerCase())){
-            Toast toast = Toast.makeText(getApplicationContext(), txtSpeechInput.getText().toString().toLowerCase(), Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Accepted", Toast.LENGTH_SHORT);
             toast.show();
+            updateWord();
+
         }
         else{
-            Toast toast = Toast.makeText(getApplicationContext(), "LOST", Toast.LENGTH_SHORT);
-            toast.show();
+            Toast toastLost = Toast.makeText(getApplicationContext(), "LOST", Toast.LENGTH_SHORT);
+            toastLost.show();
+            Toast toastAdvice = Toast.makeText(getApplicationContext(), "Advice", Toast.LENGTH_SHORT);
+            toastAdvice.show();
+            updateImageBtn();
         }
     }
+    public void updateImageBtn(){
+        btnSpeak.setImageResource(R.drawable.ico_mic64);
+    }
+    public void updateWord(){
+        score+=1;
+        txtSpeechInput.setText("");
+        mCurrentIndex = (mCurrentIndex + 1) % givenWords.length;
+        String word = givenWords[mCurrentIndex+1].getWord();
+        txtGiven.setText(word);
+        txtScore.setText("Score: "+String.valueOf(score));
+        updateImageBtn();
+
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
