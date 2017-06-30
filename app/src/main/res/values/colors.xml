@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
-    <color name="bg_gradient_start">#31244e</color>
-    <color name="bg_gradient_end">#6b394c</color>
+    <color name="bg_gradient_end">#ef32d9</color>
+    <color name="bg_gradient_start">#89fffd</color>
+    <color name="sound_btn_color">#64E3D4</color>
 </resources>
