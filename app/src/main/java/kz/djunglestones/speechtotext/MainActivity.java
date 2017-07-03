@@ -6,7 +6,9 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -74,6 +76,22 @@ public class MainActivity extends Activity {
 //                    .tintTarget(false)
 //                    .outerCircleColor(R.color.bg_gradient_end));
 
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                boolean isFirstStart = getPrefs.getBoolean("firstStart",true);
+                if (isFirstStart){
+                    startActivity(new Intent(MainActivity.this,MyIntro.class));
+                    SharedPreferences.Editor editor = getPrefs.edit();
+                    editor.putBoolean("firstStart",false);
+                    editor.apply();
+                }
+            }
+        });
+
+        thread.start();
+
 
 
 
@@ -104,7 +122,7 @@ public class MainActivity extends Activity {
                 new Words(1,"black background brown background."),
                 new Words(2,"tie twine to three tree twigs"),
                 new Words(3,"three short sword sheaths"),
-                new Words(4,"a quick witted cricket critic"),
+                new Words(4,"a quick-witted cricket critic"),
                 new Words(5,"how can a clam cram in a clean cream can"),
                  new Words(6,"coy knows pseudonoise codes"),
                  new Words(7,"clean clams crammed in clean cans"),
@@ -255,6 +273,7 @@ public class MainActivity extends Activity {
     }
     public void updateWord(){
         txtScore.setVisibility(View.VISIBLE);
+//        btnSound.setVisibility(View.VISIBLE);
         score+=1;
         txtSpeechInput.setText("");
         mCurrentIndex = (mCurrentIndex + 1) % givenWords.length;
