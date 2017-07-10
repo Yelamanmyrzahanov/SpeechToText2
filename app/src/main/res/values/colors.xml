@@ -4,4 +4,10 @@
     <color name="bg_gradient_end">#ef32d9</color>
     <color name="bg_gradient_start">#89fffd</color>
     <color name="sound_btn_color">#64E3D4</color>
+    <color name="macaroni">#FFBE7E</color>
+    <color name="terracotta">#EC7263 </color>
+    <color name="hotpurple">#58395C </color>
+    <color name="gurkha">#968D6B </color>
+    <color name="turkishrose">#A26377 </color>
+    <color name="peachorange">#F6C390 </color>
 </resources>
