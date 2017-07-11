@@ -8,25 +8,26 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@drawable/circle_score"
         android:gravity="center"
         android:text="Score: "
         android:textSize="15sp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
          />
     
     <com.huxq17.swipecardsview.SwipeCardsView
         android:id="@+id/swipeCardsView"
         android:background="#57385c"
         android:layout_width="250dp"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         app:alphaOffsetStep="20"
         app:scaleOffsetStep="0.08"
         app:yOffsetStep ="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="140dp"
         android:layout_centerHorizontal="true"
         ></com.huxq17.swipecardsview.SwipeCardsView>
 

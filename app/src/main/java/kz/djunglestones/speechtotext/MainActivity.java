@@ -1,5 +1,6 @@
 package kz.djunglestones.speechtotext;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -16,6 +17,7 @@ import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.squareup.picasso.Picasso;
 
 
 import com.huxq17.swipecardsview.SwipeCardsView;
@@ -56,7 +58,6 @@ public class MainActivity extends Activity {
 
         textViewTongueTwister = (TextView)findViewById(R.id.textViewTongueTwister);
         swipeCardsView = (SwipeCardsView) findViewById(R.id.swipeCardsView);
-        swipeCardsView.retainLastCard(false);
         swipeCardsView.enableSwipe(true);
 
         getData();
@@ -177,49 +178,43 @@ public class MainActivity extends Activity {
 
 
     private void getData() {
+        modelList.add(new Model("black background brown background",R.mipmap.ic_launcher));
         modelList.add(new Model("what noise annoys an oyster",R.mipmap.ic_launcher));
         modelList.add(new Model("Spider man",R.mipmap.ic_launcher));
         modelList.add(new Model("Spider mansome link to image",R.mipmap.ic_launcher));
-        modelList.add(new Model("black background brown background",R.mipmap.ic_launcher));
 
         CardAdapter cardAdapter = new CardAdapter(modelList,this);
         swipeCardsView.setAdapter(cardAdapter);
-        swipeCardsView.enableSwipe(false);
     }
 
 
     public void doLeftOut(){
         swipeCardsView.enableSwipe(true);
-        swipeCardsView.getNextFocusDownId();
         swipeCardsView.enableSwipe(false);
         swipeCardsView.slideCardOut(SwipeCardsView.SlideType.LEFT);
     }
 
     public void doRightOut(){
-        swipeCardsView.setNextFocusDownId(swipeCardsView.getNextFocusForwardId());
-//        swipeCardsView.slideCardOut(SwipeCardsView.SlideType.RIGHT);
-        swipeCardsView.enableSwipe(false);
         Toast.makeText(MainActivity.this,"doRightOut() clicked",Toast.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    protected void onPause() {
-//        // TODO Auto-generated method stub
-//
-//        if(tts != null){
-//
-//            tts.stop();
-//            tts.shutdown();
-//        }
-//        super.onPause();
-//    }
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+
+        if(tts != null){
+
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onPause();
+    }
 
     /**
      * Showing google speech input dialog
      * */
 
     private void convertTextToSpeech() {
-        text =Model.getTitle();
         if(text==null || "".equals(text))
         {
             text = "Content not available";
@@ -236,7 +231,7 @@ public class MainActivity extends Activity {
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                Model.getTitle());
+                "some tongue twister");
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
@@ -250,7 +245,7 @@ public class MainActivity extends Activity {
 //     * Receiving speech input
 //     * */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) throws NullPointerException {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
@@ -268,7 +263,7 @@ public class MainActivity extends Activity {
             }
 
         }
-        if((prononcedSpeech.toLowerCase()).equals(textViewTongueTwister.getText().toString().toLowerCase())){
+        if(prononcedSpeech.toLowerCase().equals(textViewTongueTwister.getText().toString().toLowerCase())){
 //            txtSpeechInput.append(String.valueOf(" "+txtSpeechInput.getText().toString().split(" ").length));
             Toast toast = Toast.makeText(getApplicationContext(), "Accepted", Toast.LENGTH_SHORT);
             toast.show();
